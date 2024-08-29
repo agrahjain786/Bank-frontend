@@ -66,9 +66,9 @@ function App() {
 
             <Route path='/user/transactions/:id' element={<MakeTransactions />}></Route>
             <Route path='/user/passbook/:id' element={<Passbook />}></Route>
-            <Route path='/user/accounts/:id' element={<Accounts />}></Route>
             <Route path='/user/settings/:id' element={<CustomerSettings />}></Route>
-          
+            <Route path='/user/accounts/:id' element={<Accounts />}></Route>
+            
           </Route>
 
         </Routes>
