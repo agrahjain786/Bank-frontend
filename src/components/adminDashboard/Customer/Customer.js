@@ -125,6 +125,12 @@ export const Customer = () => {
           resetPagination();
         }
       } else {
+        setShowFilterButton(true);
+        setId('');
+        setFirstName('');
+        setFilterType('');
+        setFilter(false);
+        setShowPagination(true);
         resetPagination();
       }
     },[searchParams]);
@@ -132,6 +138,16 @@ export const Customer = () => {
 
     useEffect(() => {
       const hasSearchParams = searchParams.toString() !== '';
+
+      if(!hasSearchParams) {
+        setShowFilterButton(true);
+        setId('');
+        setFirstName('');
+        setFilterType('');
+        setFilter(false);
+        setShowPagination(true);
+        resetPagination();
+      }
       
       const timeoutId = setTimeout(() => {
         customerTable();

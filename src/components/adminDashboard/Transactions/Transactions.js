@@ -11,12 +11,12 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { getAllTransactions, getAllTransactionsByAccountNumber, getAllTransactionsByDate } from '../../../services/AdminServices';
 import { formatDateForTable, formatDateTimeForBackend } from '../../../services/SharedServices';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { validateAccountNumber } from '../../../utils/validations/Validations';
 import { ToastContainer } from 'react-toastify';
 
 export const Transactions = () => {
-  const {currentPage, itemsPerPage, resetPagination} = useContext(PaginationContext);
+  const {currentPage, itemsPerPage, resetPagination, handleItemsPerPageChange, handlePageChange} = useContext(PaginationContext);
   const [data, setData] = useState({});
   const [keysToBeIncluded, setKeysToBeIncluded] = useState([]);
   const [showFilterButton, setShowFilterButton] = useState(true);
@@ -26,6 +26,7 @@ export const Transactions = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const dateRangeRef = useRef(null);
   const routeParams = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const filterOptions = [
     { label: 'Search by Date', value: 'date' },
     { label: 'Search by Account Number', value: 'accountNumber' }
@@ -47,6 +48,12 @@ export const Transactions = () => {
 
   const handleSearch = () => {
     resetPagination();
+    if(filterType === 'accountNumber'){
+      setSearchParams({filterType, accountNumber, currentPage, itemsPerPage});
+    }
+    if(filterType === 'date'){
+      setSearchParams({filterType, startDate: state[0].startDate,enddate: state[0].endDate, currentPage, itemsPerPage});
+    }
     if(filter === false) {
       setFilter(true);
     }
@@ -61,6 +68,7 @@ export const Transactions = () => {
     setShowFilterButton(true);
     resetPagination();
     setFilter(false);
+    setSearchParams({});
   };
 
   const handleInputClick = () => {
@@ -113,14 +121,59 @@ export const Transactions = () => {
   };
 
 
+
     useEffect(() => {
-      transactionTable();
-    }, [filter, currentPage, itemsPerPage]);
+      const filterTypeParam = searchParams.get('filterType') || '';
+      const startDateParam = searchParams.get('startDate') || '';
+      const endDateParam = searchParams.get('endDate') || '';
+      const accountNumberParam = searchParams.get('accountNumber') || '';
+      const currentPageParam = Number(searchParams.get('currentPage')) || 1;
+      const itemsPerPageParam = Number(searchParams.get('itemsPerPage')) || 10;
+
+      if (filterTypeParam === 'date' || filterTypeParam === 'accountNumber') {
+        setFilterType(filterTypeParam);
+        setShowFilterButton(!filterTypeParam);
+        setFilter(true);
+        if (filterTypeParam === 'accountNumber') {
+          setAccountNumber(accountNumberParam);
+        } else if (filterTypeParam === 'date') {
+          setState([
+            {
+              startDate: new Date(startDateParam),
+              endDate: new Date(endDateParam),
+              key: "selection",
+            },
+          ]);
+        }
+        handlePageChange(currentPageParam);
+        handleItemsPerPageChange(itemsPerPageParam);
+      } else {
+        setShowFilterButton(true);
+        setAccountNumber('');
+        setFilterType('');
+        setFilter(false);
+        resetPagination();
+      }
+    },[searchParams]);
 
 
     useEffect(() => {
-      resetPagination();
-    },[]);
+      const hasSearchParams = searchParams.toString() !== '';
+
+      if(!hasSearchParams) {
+        setShowFilterButton(true);
+        setAccountNumber('');
+        setFilterType('');
+        setFilter(false);
+        resetPagination();
+      }
+      
+      const timeoutId = setTimeout(() => {
+        transactionTable();
+      }, hasSearchParams ? 0: 0);
+      return () => clearTimeout(timeoutId);
+
+    }, [filter, currentPage, itemsPerPage, searchParams]);
 
 
     useEffect(() => {
