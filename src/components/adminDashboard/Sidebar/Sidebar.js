@@ -103,6 +103,170 @@ export const Sidebar = () => {
                 <span className="menu-link-text">Dashboard</span>
               </NavLink>
             </li>
+            <li className={`menu-item ${activeMenu === 'users' ? 'active' : ''}`}>
+              <button className="menu-link" onClick={() => handleMenuClick('users')} style={{marginBottom: '6px'}}>
+                <span className="menu-link-icon">
+                  <MdOutlineCreate size={20} />
+                </span>
+                <span className="menu-link-text">Users</span>
+              </button>
+              {(activeMenu === 'users' || activeMenu === 'employees' || activeMenu === 'agents' || activeMenu === 'customers') && (
+                <ul className="menu-list" >
+                  <li className={`menu-item ${activeMenu === 'employees' ? 'active' : ''}`}>
+                    <button className="menu-link" onClick={() => handleMenuClick('employees')} style={{marginBottom: '6px'}}>
+                      <span className="menu-link-icon">
+                        <MdOutlineCreate size={20} />
+                      </span>
+                      <span className="menu-link-text">Employees</span>
+                    </button>
+                    {(activeMenu === 'employees' || activeMenu === 'add-employees' || activeMenu === 'get-employees') && (
+                      <ul className="menu-list" >
+                        <li className={`menu-item ${activeMenu === 'add-employees' ? 'active' : ''}`} style={{marginBottom: '4px'}}>
+                          <NavLink to={`/admin/add-employees/${routeParams.id}`} className="menu-link" onClick={() => handleMenuClick('add-employees')}>
+                          <span className="menu-link-icon">
+                            <MdOutlinePersonAdd size={20} />
+                          </span>
+                          <span className="menu-link-text">Add Employees</span>
+                          </NavLink>
+                        </li>
+                        <li className={`menu-item ${activeMenu === 'get-employees' ? 'active' : ''}`}>
+                          <NavLink to={`/admin/get-employees/${routeParams.id}`} className="menu-link" onClick={() => handleMenuClick('get-employees')}>
+                          <span className="menu-link-icon">
+                            <MdOutlinePeople size={20} />
+                          </span>
+                          <span className="menu-link-text">Get Employees</span>
+                          </NavLink>
+                        </li>
+                      </ul>
+                    )}
+                  </li>
+                  <li className={`menu-item ${activeMenu === 'agents' ? 'active' : ''}`}>
+                    <button className="menu-link" onClick={() => handleMenuClick('agents')} style={{marginBottom: '6px'}}>
+                      <span className="menu-link-icon">
+                        <MdOutlineCreate size={20} />
+                      </span>
+                      <span className="menu-link-text">Agents</span>
+                    </button>
+                    {(activeMenu === 'agents' || activeMenu === 'add-agents' || activeMenu === 'get-agents') && (
+                      <ul className="menu-list" >
+                        <li className={`menu-item ${activeMenu === 'add-agents' ? 'active' : ''}`} style={{marginBottom: '4px'}}>
+                          <NavLink to={`/admin/add-agents/${routeParams.id}`} className="menu-link" onClick={() => handleMenuClick('add-agents')}>
+                          <span className="menu-link-icon">
+                            <MdOutlinePersonAdd size={20} />
+                          </span>
+                          <span className="menu-link-text">Add Agents</span>
+                          </NavLink>
+                        </li>
+                        <li className={`menu-item ${activeMenu === 'get-agents' ? 'active' : ''}`}>
+                          <NavLink to={`/admin/get-agents/${routeParams.id}`} className="menu-link" onClick={() => handleMenuClick('get-agents')}>
+                          <span className="menu-link-icon">
+                            <MdOutlinePeople size={20} />
+                          </span>
+                          <span className="menu-link-text">Get Agents</span>
+                          </NavLink>
+                        </li>
+                      </ul>
+                    )}
+                  </li>
+                  <li className={`menu-item ${activeMenu === 'customers' ? 'active' : ''}`}>
+                    <button className="menu-link" onClick={() => handleMenuClick('customers')} style={{marginBottom: '6px'}}>
+                      <span className="menu-link-icon">
+                        <MdOutlineCreate size={20} />
+                      </span>
+                      <span className="menu-link-text">Customers</span>
+                    </button>
+                    {(activeMenu === 'customers' || activeMenu === 'add-customers' || activeMenu === 'get-customers') && (
+                      <ul className="menu-list" >
+                        <li className={`menu-item ${activeMenu === 'add-customers' ? 'active' : ''}`} style={{marginBottom: '4px'}}>
+                          <NavLink to={`/admin/add-customers/${routeParams.id}`} className="menu-link" onClick={() => handleMenuClick('add-customers')}>
+                          <span className="menu-link-icon">
+                            <MdOutlinePersonAdd size={20} />
+                          </span>
+                          <span className="menu-link-text">Add Customers</span>
+                          </NavLink>
+                        </li>
+                        <li className={`menu-item ${activeMenu === 'get-customers' ? 'active' : ''}`}>
+                          <NavLink to={`/admin/get-customers/${routeParams.id}`} className="menu-link" onClick={() => handleMenuClick('get-customers')}>
+                          <span className="menu-link-icon">
+                            <MdOutlinePeople size={20} />
+                          </span>
+                          <span className="menu-link-text">Get Customers</span>
+                          </NavLink>
+                        </li>
+                      </ul>
+                    )}
+                  </li>
+                </ul>
+              )}
+            </li>
+            <li className={`menu-item ${activeMenu === 'locations' ? 'active' : ''}`}>
+              <button className="menu-link" onClick={() => handleMenuClick('locations')} style={{marginBottom: '6px'}}>
+                <span className="menu-link-icon">
+                  <MdOutlineCreate size={20} />
+                </span>
+                <span className="menu-link-text">Locations</span>
+              </button>
+              {(activeMenu === 'locations' || activeMenu === 'state' || activeMenu === 'city') && (
+                <ul className="menu-list" >
+                <li className={`menu-item ${activeMenu === 'state' ? 'active' : ''}`}>
+                  <button className="menu-link" onClick={() => handleMenuClick('state')} style={{marginBottom: '6px'}}>
+                    <span className="menu-link-icon">
+                      <MdOutlineCreate size={20} />
+                    </span>
+                    <span className="menu-link-text">State</span>
+                  </button>
+                  {(activeMenu === 'state' || activeMenu === 'add-state' || activeMenu === 'get-state') && (
+                    <ul className="menu-list" >
+                      <li className={`menu-item ${activeMenu === 'add-state' ? 'active' : ''}`} style={{marginBottom: '4px'}}>
+                        <NavLink to={`/admin/add-state/${routeParams.id}`} className="menu-link" onClick={() => handleMenuClick('add-state')}>
+                        <span className="menu-link-icon">
+                          <MdOutlinePersonAdd size={20} />
+                        </span>
+                        <span className="menu-link-text">Add State</span>
+                        </NavLink>
+                      </li>
+                      <li className={`menu-item ${activeMenu === 'get-state' ? 'active' : ''}`}>
+                        <NavLink to={`/admin/get-state/${routeParams.id}`} className="menu-link" onClick={() => handleMenuClick('get-state')}>
+                        <span className="menu-link-icon">
+                          <MdOutlinePeople size={20} />
+                        </span>
+                        <span className="menu-link-text">Get State</span>
+                        </NavLink>
+                      </li>
+                    </ul>
+                  )}
+                </li>
+                <li className={`menu-item ${activeMenu === 'city' ? 'active' : ''}`}>
+                  <button className="menu-link" onClick={() => handleMenuClick('city')} style={{marginBottom: '6px'}}>
+                    <span className="menu-link-icon">
+                      <MdOutlineCreate size={20} />
+                    </span>
+                    <span className="menu-link-text">City</span>
+                  </button>
+                  {(activeMenu === 'city' || activeMenu === 'add-city' || activeMenu === 'get-city') && (
+                    <ul className="menu-list" >
+                      <li className={`menu-item ${activeMenu === 'add-city' ? 'active' : ''}`} style={{marginBottom: '4px'}}>
+                        <NavLink to={`/admin/add-city/${routeParams.id}`} className="menu-link" onClick={() => handleMenuClick('add-city')}>
+                        <span className="menu-link-icon">
+                          <MdOutlinePersonAdd size={20} />
+                        </span>
+                        <span className="menu-link-text">Add City</span>
+                        </NavLink>
+                      </li>
+                      <li className={`menu-item ${activeMenu === 'get-city' ? 'active' : ''}`}>
+                        <NavLink to={`/admin/get-city/${routeParams.id}`} className="menu-link" onClick={() => handleMenuClick('get-city')}>
+                        <span className="menu-link-icon">
+                          <MdOutlinePeople size={20} />
+                        </span>
+                        <span className="menu-link-text">Get City</span>
+                        </NavLink>
+                      </li>
+                    </ul>
+                  )}
+                </li>
+              </ul>
+              )}
+            </li>
             <li className={`menu-item ${activeMenu === 'customer' ? 'active' : ''}`}>
               <NavLink to={`/admin/customer/${routeParams.id}`} className="menu-link" onClick={() => handleMenuClick('customer')}>
                 <span className="menu-link-icon">

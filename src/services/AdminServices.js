@@ -228,7 +228,7 @@ export const getSystemStats = async () => {
 export const getAllCustomers = async (currentPage, itemsPerPage) => {
     const token = localStorage.getItem('auth');
     try {
-        const response = await axios.get('http://localhost:8080/api/admin/customers', {
+        const response = await axios.get('http://localhost:8080/suraksha/employee/employee', {
               params: { page: currentPage - 1, size: itemsPerPage },
               headers: { 'Authorization': `Bearer ${token}` }
           }).catch((error) => {throw new AxiosError(error.response.data.message)});
